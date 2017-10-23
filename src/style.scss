@@ -1,7 +1,7 @@
 /* variables */
 $fira: 'Fira Sans', sans-serif;
 $rale: 'Raleway', sans-serif;
-
+$phone-color: #3088f4;
 
 body {
 	font-family: $rale;
@@ -37,10 +37,11 @@ a{
 	}
 }
 #app{
-	max-width: 860px;
+	max-width: 900px;
+	padding: 20px;
 	width: 100%;
-	border-radius: 10px;
 	overflow: hidden;
+	border-radius: 10px;
 	margin: 30px auto 0;
 	color: red;
 }
@@ -55,6 +56,8 @@ a{
 	-webkit-box-shadow: 0px 0px 20px 10px rgba(147,147,147,1);
 	-moz-box-shadow: 0px 0px 20px 10px rgba(147,147,147,1);
 	box-shadow: 0px 0px 20px 10px rgba(147,147,147,1);
+	margin-bottom: 40px;
+	position: relative;
 }
 .greetng__item{
 	width: 50%;
@@ -126,13 +129,12 @@ a{
 	justify-content: flex-end;
 }
 .greetng__item__form__hint{
-	font-size: 14px;
+	font-size: 10px;
 	line-height: 15px;	
 	color: #999999;
 	position: absolute;
-	top: 25px;
+	top: 5px;
 	left: 5px;
-	z-index: 1;
 	transition: all 200ms ease-out;
 }
 .greetng__item__form__input{
@@ -147,14 +149,12 @@ a{
 	border-bottom: 2px solid #cccccc;
 	transition: all 180ms ease-out;
 	position: relative;
-	z-index: 5;
 	background-color: transparent;
+	cursor: default;
 	&:focus {
 		border-bottom: 2px solid #3088f4;
 		transition: all 180ms ease-out;
 		& + .greetng__item__form__hint{
-			top: 5px;
-			font-size: 10px;
 			transition: all 200ms ease-out;
 			color: #3088f4;
 		}
@@ -174,5 +174,85 @@ a{
 	letter-spacing: 2px;
 	text-align: center;
 	color: #ffffff;
-	margin-top: 20px;
+	margin: 20px 0 15px;
+}
+.link-out{
+	display: block;
+  text-align: center;
+  height: 21px;
+  font-family: $fira;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  color: #3c3c3c;
+  cursor: pointer;
+}
+.foot-block{
+	font-family: $fira;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+	&__text{
+		display: block;
+		font-size: 10px;
+		line-height: 1.5;
+		font-family: $fira;
+		color: #999999;
+		padding-right: 2px;
+	}
+	&__phone{
+		display: block;
+		font-size: 15px;
+		line-height: 1.07;
+		color: #3088f4;
+		cursor: pointer;
+	}
+}
+.restore-pass{
+	position: absolute;
+	top: initial;
+	left: initial;
+	right: 0;
+	bottom: 5px;
+	text-align: right;
+	width: 70px;
+	cursor: pointer;
+}
+.success-registr-block{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: #30e8bd;
+	opacity: 0.9;
+	color: white;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	z-index: 5;
+}
+.success-registr-block__text{
+	font-size: 40px;
+	font-weight: bold;
+}
+.succes-registr-enter-active {
+  transition: all .3s ease;
+}
+.succes-registr-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.succes-registr-enter, .succes-registr-leave-to
+/* .slide-leave-active до версии 2.1.8 */ {
+  transform: rotate(360deg);
+  opacity: 0;
 }
