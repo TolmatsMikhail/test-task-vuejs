@@ -65,7 +65,7 @@
 			},
 			sumFuncToRestorePass(event) {
 				event.preventDefault();
-				if(this.my_email.length < 1) {
+				if(this.my_email.length < 1 || this.emailIsValid == true) {
 					this.emailIsValid = true;
 					return;
 				}
