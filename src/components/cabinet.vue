@@ -23,7 +23,6 @@
 	export default{
 		data() {
 			return {
-				greetTitle: 'Привет! Это твой кабинет',
 				urlWithData: 'http://test-task-api.insirion.ru/user/insurance',
 				insuraneItems: '',
 			}

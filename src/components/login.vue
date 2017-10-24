@@ -29,6 +29,7 @@
 					@keyup="ifInvalidEmailOrPass = false"
 					@keypress="ifInvalidEmailOrPass = false"
 					@change="ifInvalidEmailOrPass = false"
+					@input="resetField"
 					>	
 					<label class="greetng__item__form__hint" for="form-password">
 						{{ yourPass }}
@@ -38,8 +39,7 @@
 					</a>
 					<div v-if="ifPassExist" class="message">
 						{{ invalidPasswordMessage }}
-					</div>		
-
+					</div>	
 					<div class="message_from_rest message" v-if="ifInvalidEmailOrPass">
 						{{ invalidEmailOrPass }}
 					</div>
@@ -93,9 +93,33 @@
 		// Here can use es6
 		methods: {
 			checkingEmailInput(event) {
+				let checkedParam;
+				if(event.target) {
+					checkedParam = event.target.value;
+				} else {
+					checkedParam = event;
+				}
 				this.emailIsValid = true;
 				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-				if(re.test(event.target.value)) this.emailIsValid = false;
+				if(!re.test(checkedParam)) {
+					this.emailIsValid = true;
+					if(this.my_password.length < 1) {
+						this.ifPassExist = true;
+					}
+					return false;
+				}
+				else {
+					this.emailIsValid = false;
+					if(this.my_password.length < 1) {
+						this.ifPassExist = true;
+						return false;
+					}
+					return true;
+				}
+				return false;
+			},
+			resetField(){
+				this.ifPassExist = false;
 			},
 			nabigateToRegistr(event) {
 				event.preventDefault();
@@ -107,6 +131,8 @@
 			},
 			doAuthorize(event) {
 				event.preventDefault();
+
+				if(!this.checkingEmailInput(this.my_email)) return;
 
 				let data = {
 					'email': this.my_email,

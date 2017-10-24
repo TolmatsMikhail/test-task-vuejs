@@ -15,13 +15,15 @@
 	import REGISRT from './components/registr.vue'
 	import RESTOREPASS from './components/restore.vue'
 	import CABINET from './components/cabinet.vue'
+	import NOTFOUND from './components/notFound.vue'
 
 	export default {
 		components: {
 			'login-cmp': LOGIN,
 			'registr-cmp': REGISRT,
 			'restore-cmp': RESTOREPASS,
-			'cabinet-cmp': CABINET
+			'cabinet-cmp': CABINET,
+			'404-cmp': NOTFOUND
 		}
 	}
 </script>

@@ -60,7 +60,7 @@
 						{{ inputEmail }}
 					</label>				
 					<div v-if="emailIsValid" class="message">
-						{{ phoneInvalidMessage }}
+						{{ invalidEmailMessage }}
 					</div>
 				</div>
 				<button class="greetng__item__form__button" @click="doRegistration($event)">
@@ -114,7 +114,7 @@
 				regSuccess: false,
 				emailIsValid: false,
 				invalidEmailMessage: 'Invalid email !',
-				anotherPassMessage: 'Password differs',
+				anotherPassMessage: 'Passwords mustn\'t be different or empty',
 				passwordsEqual: false,
 				ifPhoneValid: false,
 				phoneInvalidMessage: 'Phone is not valid'
@@ -166,7 +166,6 @@
 			},
 			checkForm() {
 				if(this.checkingPassEquals() && this.checkingEmailInput(this.my_email) && this.getNormalPhone(this.my_normal_phone)) {
-					console.log(' all cool');
 					return true;
 				}
 				return false;
@@ -181,9 +180,8 @@
 				this.checkingPassEquals();
 				this.checkingEmailInput(this.my_email);
 
-				this.checkForm();
+				if(!this.checkForm()) return;
 
-				return;
 
 				fetch(this.urlForRegistr, {
 					method: "POST",
