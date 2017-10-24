@@ -6,19 +6,24 @@
 			</a>
 			<form class="greetng__item__form">
 				<div class="greetng__item__form__item">
-					<input type="text" class="greetng__item__form__input" name="form-login">	
+					<input type="text" class="greetng__item__form__input" name="form-login"
+					@input="checkingEmailInput"
+					v-model="my_email">	
 					<label class="greetng__item__form__hint" for="form-login">
 						{{ inputEmail }}
-					</label>				
+					</label>	
+					<div v-if="emailIsValid" class="message">
+						{{ invalidEmailMessage }}
+					</div>			
 				</div>
-				<button class="greetng__item__form__button" @click="submit($event)">
+				<!-- Really, there's no way to use this button -->
+				<button class="greetng__item__form__button" @click="sumFuncToRestorePass($event)">
 					{{ restorePass }}
 				</button>
 
 				<a class="link-out" @click="goBack">
 					{{ goBackWord }}
 				</a>
-
 			</form>
 			<foot-cmp></foot-cmp>
 		</div>
@@ -40,6 +45,9 @@
 				goBackWord: 'Вернуться назад',
 				azurPhoneText: 'Единый номер Azur: ',
 				azurPhoneNumber: '+375 (29) 123-45-67',
+				emailIsValid: false,
+				invalidEmailMessage: 'Invalid email !',
+				my_email: '',
 			}
 		},
 		components: {
@@ -49,6 +57,20 @@
 		methods: {
 			goBack() {
 				this.$router.go(-1);
+			},
+			checkingEmailInput(event) {
+				this.emailIsValid = true;
+				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				if(re.test(event.target.value)) this.emailIsValid = false;
+			},
+			sumFuncToRestorePass(event) {
+				event.preventDefault();
+				if(this.my_email.length < 1) {
+					this.emailIsValid = true;
+					return;
+				}
+				alert('do Something to send letter.No task');
+				return;
 			}
 		}
 	}

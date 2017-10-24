@@ -14,12 +14,14 @@
 	import LOGIN from './components/login.vue';
 	import REGISRT from './components/registr.vue'
 	import RESTOREPASS from './components/restore.vue'
+	import CABINET from './components/cabinet.vue'
 
 	export default {
 		components: {
 			'login-cmp': LOGIN,
 			'registr-cmp': REGISRT,
-			'restore-cmp': RESTOREPASS
+			'restore-cmp': RESTOREPASS,
+			'cabinet-cmp': CABINET
 		}
 	}
 </script>
@@ -35,7 +37,7 @@
 	}
 	.slide-enter, .slide-leave-to
 	/* .slide-leave-active до версии 2.1.8 */ {
-	  transform: rotate(1440deg) scale(0.1);
+	  transform: rotate(360deg) scale(0.01);
 	  opacity: 0;
 	}
 </style>

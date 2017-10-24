@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import insApp from './App.vue';
 import VueRouter from 'vue-router';
-import { VueMaskDirective } from 'v-mask'
+import { VueMaskDirective } from 'v-mask';
 import { routes } from "./routes.js";
 
 Vue.directive('mask', VueMaskDirective);

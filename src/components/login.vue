@@ -6,53 +6,66 @@
 			</a>
 			<form class="greetng__item__form">
 				<div class="greetng__item__form__item">
-					<input type="text" class="greetng__item__form__input" name="form-login">	
+					<input 
+					type="text"
+					class="greetng__item__form__input"
+					name="form-login"
+					v-model="my_email"
+					@input="checkingEmailInput"
+					@keyup="ifInvalidEmailOrPass = false"
+					@keypress="ifInvalidEmailOrPass = false"
+					@change="ifInvalidEmailOrPass = false"
+					>
 					<label class="greetng__item__form__hint" for="form-login">
 						{{ inputLoginOrEmail }}
-					</label>				
+					</label>		
+					<div v-if="emailIsValid" class="message">
+						{{ invalidEmailMessage }}
+					</div>
 				</div>
 				<div class="greetng__item__form__item">
-					<input type="text" class="greetng__item__form__input" name="form-password">	
+					<input type="password" class="greetng__item__form__input" name="form-password"
+					v-model="my_password"
+					@keyup="ifInvalidEmailOrPass = false"
+					@keypress="ifInvalidEmailOrPass = false"
+					@change="ifInvalidEmailOrPass = false"
+					>	
 					<label class="greetng__item__form__hint" for="form-password">
 						{{ yourPass }}
-					</label>
-					
+					</label>					
 					<a class="restore-pass greetng__item__form__hint" @click="restorePassword">
 						{{ forgetPassword }}
 					</a>
+					<div v-if="ifPassExist" class="message">
+						{{ invalidPasswordMessage }}
+					</div>		
 
+					<div class="message_from_rest message" v-if="ifInvalidEmailOrPass">
+						{{ invalidEmailOrPass }}
+					</div>
 				</div>
-				<button class="greetng__item__form__button" @click="submit($event)">
+				<button 
+					class="greetng__item__form__button"
+					@click="doAuthorize($event)">
 					{{ loginButton }}
 				</button>
-
 				<!-- <router-link to="registration" class="link-out"> 
 					{{ doRegistr }}
 				</router-link> -->
-
 				<a class="link-out" @click="nabigateToRegistr">
 					{{ doRegistr }}
 				</a>
-
 			</form>
-
-			<!-- footer in form -->
 			<foot-cmp></foot-cmp>
-			<!-- end footer in form -->
-
 		</div>
-
-		<!-- right side -->
 		<right-cmp></right-cmp>
-		<!-- end right side -->
-
 	</div>
 </template>
 
 <script>
 	import rightSideFormElement from "./rightSide.vue";
 	import footerElement from "./footer.vue"
-
+	
 	export default {
 		data: function() {
 			return {
@@ -65,13 +78,24 @@
 				doRegistr: 'Зарегистрироваться',
 				azurPhoneText: 'Единый номер Azur: ',
 				azurPhoneNumber: '+375 (29) 123-45-67',
-				forgetPassword: 'Забыли?'
+				forgetPassword: 'Забыли?',
+				urlForLogin: 'http://test-task-api.insirion.ru/user/authorization',
+				my_email: '',
+				my_password: '',
+				emailIsValid: false,
+				ifPassExist: false,
+				invalidEmailMessage: 'Invalid email !',
+				invalidPasswordMessage: 'Empty field !',
+				invalidEmailOrPass:'Incorrect E-mail or Password',
+				ifInvalidEmailOrPass: false,
 			}
 		},
 		// Here can use es6
 		methods: {
-			changeTitle() {
-				this.loginTitle = 'Другой заголовок '; 
+			checkingEmailInput(event) {
+				this.emailIsValid = true;
+				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				if(re.test(event.target.value)) this.emailIsValid = false;
 			},
 			nabigateToRegistr(event) {
 				event.preventDefault();
@@ -80,6 +104,35 @@
 			restorePassword(event) {
 				event.preventDefault();
 				this.$router.push({path: 'restore-pass'})
+			},
+			doAuthorize(event) {
+				event.preventDefault();
+
+				let data = {
+					'email': this.my_email,
+					'password': this.my_password
+				}
+				fetch(this.urlForLogin, {
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then( (response, reject) => {
+					if(response.status === 200) {
+						console.log('Успешная авторизация');
+						return response.json();
+					} else {
+						this.ifInvalidEmailOrPass = true;
+					}
+				}).then( (res) => {
+					if(!res) {
+						return;
+					}
+					let myStorage = localStorage;
+					myStorage.setItem('token-sirion', res.token);
+					this.$router.push({ path: 'cabinet'});
+				})
 			}
 		},
 		components: {

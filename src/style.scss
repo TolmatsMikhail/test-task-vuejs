@@ -6,6 +6,7 @@ $phone-color: #3088f4;
 body {
 	font-family: $rale;
 	background-color: #ffffff;
+	height: 100vh;
 }
 * {
 	box-sizing: border-box;
@@ -37,15 +38,14 @@ a{
 	}
 }
 #app{
+}
+.greeting{
 	max-width: 900px;
-	padding: 20px;
 	width: 100%;
 	overflow: hidden;
 	border-radius: 10px;
 	margin: 30px auto 0;
 	color: red;
-}
-.greeting{
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -255,4 +255,101 @@ a{
 /* .slide-leave-active до версии 2.1.8 */ {
   transform: rotate(360deg);
   opacity: 0;
+}
+.cabinet{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	flex-direction: column;
+	height: 100vh;
+}
+.cabinet__items{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+.cabinet__item{
+	width: 160px;
+	height: 192px;
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 0 0 20px 0 rgba(89, 159, 246, 0.3);
+	overflow: hidden;
+	font-family: $fira;
+	margin: 10px;
+	cursor: pointer;
+	position: relative;
+	z-index: 5;
+	display: block;
+	&:hover{
+		& > .cabinet__item__image{
+			transform: scale(1.2);
+			transition: all 150ms ease-out;
+		}
+	}
+	&:active{
+		& > .cabinet__item__image{
+			transform: scale(1);
+			transition: all 150ms ease-out;
+		}
+	}
+}
+.cabinet__item__image{
+	height: 95px;
+	overflow: hidden;
+	text-align: center;
+	transition: all 150ms ease-out;
+	img{
+		height: 100%;
+	}
+}
+.divider{
+	height: 15px;
+	background-color: #fff;
+	position: relative;
+	z-index: 50;
+	font-size: 0;
+	line-height: 0;
+}
+.cabinet__item__title{
+	text-align: center;
+	height: 21px;
+	font-size: 18px;
+	line-height: 1.17;
+	color: #3c3c3c;
+	margin-bottom: 10px;
+	padding: 0 10px;
+}
+.cabinet__item__description{
+  height: 36px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  color: #999999;
+}
+.message{
+	font-size: 10px;
+	line-height: 12px;
+	font-weight: bold;
+	color: orange;
+	position: absolute;
+	left: 100%;
+	width: 100%;
+	white-space:nowrap; 
+	bottom: 7px;
+}
+.message_from_rest{
+	right: auto;
+	left: 0;
+	bottom: -17px;
 }

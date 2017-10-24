@@ -1,6 +1,7 @@
 import LOGIN from "./components/login.vue";
 import REGISRT from "./components/registr.vue";
 import RESTOREPASS from "./components/restore.vue";
+import CABINET from "./components/cabinet.vue"
 
 export const routes = [
 	{
@@ -17,5 +18,9 @@ export const routes = [
 	{
 		path: '/restore-pass',
 		component: RESTOREPASS
+	},
+	{
+		path: '/cabinet',
+		component: CABINET
 	},
 ];
