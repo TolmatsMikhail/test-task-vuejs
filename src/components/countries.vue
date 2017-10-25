@@ -1,5 +1,9 @@
 <template>
 	 <div class="country">
+	 	<div>
+	 		Input Name or Name part here ↓↓↓
+	 	</div>
+	 	<br />
 	 	<input type="text" class="greetng__item__form__input"
 	 	@keyup="filterFunc">
 		<div class="country__list">
@@ -9,7 +13,7 @@
 		</div>
 
 		<div v-if="filtered.length < 1">
-			Похоже, такой страны не существует
+			Sorry, it seems, there's no country with such name.
 		</div>
 	 </div>
 </template>
